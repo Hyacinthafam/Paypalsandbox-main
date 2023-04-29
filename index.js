@@ -1,15 +1,22 @@
 const express = require("express");
 const paypal = require("paypal-rest-sdk");
 
-let PORT = 5000
+//let PORT = 3000
 
 paypal.configure({
-    mode: "sandbox", //sandbox or live
-    client_id:
-      "AfftYim3auCnSXYmdHTdi-qz3GuaXi49dlQLf2zJs9-acEfuHZad1wJsbYWSAAEON-huM4ftU8A5XjbS",
-    client_secret:
-      "EJz8klc568k2EKXv8NQhMF-fc3tt3kj6o5WrCGTpYvGpHPIhvUjK-e6jP1T4MLAQjRbWfkLtHIgAB9gq",
-  });
+  mode: "sandbox", //sandbox or live
+  client_id:
+    "AUo-kQDHSBws6GPcrblX_2jVzKoQrAI1tUCx9QMWVPh1E4LXDhBQprFeZo1YlrsuxtYZpil-xqn1lwg9",
+  client_secret:
+    "EOKjzpRyxHdOHY5mGWZEYRi-W6lluLiEPY2I90NLfzBHbvJbX-acExPMlBAXG1va0wg8E1mfpZwoFYmt",
+});
+const path = require('path');
+
+ //const express = require('express');
+
+ app.use(express.static(path.join(__dirname, 'public')))
+
+const PORT = process.env.PORT || 3000
 
 const app = express();
 
