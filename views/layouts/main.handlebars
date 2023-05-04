@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>Twenty by HTML5 UP</title>
+		<title>University Catering Payment Authentication</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -36,20 +36,20 @@
 						<header>
 							<h2>PAY</h2>
 						</header>
-						<p>This is <strong>Twenty</strong>, a free
+						<p>Welcome <strong>Please</strong>, choose
 						<br />
-						responsive template
+						your preferred payment option
 						<br />
-						by <a href="http://html5up.net">HTML5 UP</a>.</p>
+						</p>
 						<footer>
 							<ul class="buttons">
-								<li><button  type="submit" onclick="UserAction()"  class="button primary">Pay with Paypal</button></li>
-								<li><a href="#" class="button">Pay with Card</a></li>
+								<form  class="button primary" action="/pay" method="post">
+								<li><button  type="submit"  class="button primary">PayPal</button></li>
+								</form>
+								<li><a href="#" class="button">Debit or Credit Card</a></li>
 							</ul>
 						</footer>
-						<form action="/pay" method="post">
-							<input type="submit" value="Buy">
-						  </form>
+						
 					</div>
 
 				</section>

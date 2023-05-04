@@ -2142,7 +2142,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background: rgba(188, 202, 206, 0.15);
+			background: rgb(28, 28, 28);
 			border-color: inherit;
 		}
 
@@ -2151,9 +2151,9 @@ input, select, textarea {
 		input[type="reset"].primary,
 		button.primary,
 		.button.primary {
-			background: #83d3c9;
-			border-color: #83d3c9;
-			color: #fff !important;
+			background: #fdb50a;
+			border-color: #fdb50a;
+			color: #1e28c3 !important;
 		}
 
 			input[type="button"].primary:hover,
@@ -2161,8 +2161,8 @@ input, select, textarea {
 			input[type="reset"].primary:hover,
 			button.primary:hover,
 			.button.primary:hover {
-				background: #96dad1 !important;
-				border-color: #96dad1 !important;
+				background: #f5bf40 !important;
+				border-color: #f5bf40 !important;
 			}
 
 		input[type="button"].fit,

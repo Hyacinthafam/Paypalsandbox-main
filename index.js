@@ -45,7 +45,7 @@ app.post("/pay", (req, res) => {
             {
               name: "Red Sox Hat",
               sku: "001",
-              price: "25.00",
+              price: "5.00",
               currency: "USD",
               quantity: 1,
             },
@@ -53,7 +53,7 @@ app.post("/pay", (req, res) => {
         },
         amount: {
           currency: "USD",
-          total: "25.00",
+          total: "5.00",
         },
         description: "Hat for the best team ever",
       },
@@ -83,7 +83,7 @@ app.get("/success", (req, res) => {
       {
         amount: {
           currency: "USD",
-          total: "25.00",
+          total: "5.00",
         },
       },
     ],
