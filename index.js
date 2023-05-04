@@ -10,17 +10,23 @@ paypal.configure({
   client_secret:
     "EOKjzpRyxHdOHY5mGWZEYRi-W6lluLiEPY2I90NLfzBHbvJbX-acExPMlBAXG1va0wg8E1mfpZwoFYmt",
 });
-const path = require('path');
-
- //const express = require('express');
-
- app.use(express.static(path.join(__dirname, 'public')))
 
 const PORT = process.env.PORT || 3000
 
 const app = express();
+app.use(express.static(__dirname + '/public'));
 
-app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
+const handlebars = require('express-handlebars')
+             .create({ defaultLayout:'main' });
+ app.engine('handlebars', handlebars.engine); 
+ app.set('view engine', 'handlebars');
+
+
+//app.get("/", (req, res) => res.sendFile(__dirname + "home"));
+
+app.get('/', function(req, res){
+  res.render('home');
+});
 
 app.post("/pay", (req, res) => {
   const create_payment_json = {
