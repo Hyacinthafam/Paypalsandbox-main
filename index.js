@@ -28,8 +28,8 @@ app.get('/', function(req, res){
   res.render('home');
 });
 
-app.get('/success', function(req, res){
-  res.render('success');
+app.get('/completed', function(req, res){
+  res.render('completed');
 });
 
 app.post("/pay", (req, res) => {
@@ -102,8 +102,8 @@ app.get("/success", (req, res) => {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-       //res.send("Success");
-       res.redirect('/success');
+       res.send('Successful');
+       return res.redirect('/completed');
         
       }
     }
