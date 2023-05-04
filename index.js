@@ -28,6 +28,10 @@ app.get('/', function(req, res){
   res.render('home');
 });
 
+app.get('/success', function(req, res){
+  res.render('success');
+});
+
 app.post("/pay", (req, res) => {
   const create_payment_json = {
     intent: "sale",
@@ -98,7 +102,9 @@ app.get("/success", (req, res) => {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-        res.send("Success");
+       //res.send("Success");
+       res.redirect('/success');
+        
       }
     }
   );
