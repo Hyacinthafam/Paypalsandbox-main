@@ -1,5 +1,8 @@
 const express = require("express");
 const paypal = require("paypal-rest-sdk");
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const app = express();
 
 //let PORT = 3000
 
@@ -13,22 +16,24 @@ paypal.configure({
 
 const PORT = process.env.PORT || 3000
 
-const app = express();
+//const app = express();
 app.use(express.static(__dirname + '/public'));
+
 
 const handlebars = require('express-handlebars')
              .create({ defaultLayout:'main' });
  app.engine('handlebars', handlebars.engine); 
  app.set('view engine', 'handlebars');
+ app.set('views', './views');
 
 
 //app.get("/", (req, res) => res.sendFile(__dirname + "home"));
 
-app.get('/', function(req, res){
+app.get('/', (req, res) => {
   res.render('home');
 });
 
-app.get('/completed', function(req, res){
+app.get('/completed', (req, res) => {
   res.render('completed');
 });
 
@@ -102,8 +107,8 @@ app.get("/success", (req, res) => {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-       res.send('Successful');
-       return res.redirect('/completed');
+       //res.send('Successful');
+      res.redirect('completed');
         
       }
     }
