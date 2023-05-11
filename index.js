@@ -52,9 +52,9 @@ app.post("/pay", (req, res) => {
         item_list: {
           items: [
             {
-              name: "Red Sox Hat",
+              name: "Chicken Bugger Meal",
               sku: "001",
-              price: "5.00",
+              price: "13.50",
               currency: "USD",
               quantity: 1,
             },
@@ -62,9 +62,9 @@ app.post("/pay", (req, res) => {
         },
         amount: {
           currency: "USD",
-          total: "5.00",
+          total: "13.50",
         },
-        description: "Hat for the best team ever",
+        description: "Chicken Bugger Meal Full Student Lunch",
       },
     ],
   };
@@ -92,7 +92,7 @@ app.get("/success", (req, res) => {
       {
         amount: {
           currency: "USD",
-          total: "5.00",
+          total: "13.50",
         },
       },
     ],
@@ -107,8 +107,8 @@ app.get("/success", (req, res) => {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-       //res.send('Successful');
-      res.redirect('completed');
+       res.send('Payment Authorized');
+      //res.redirect('completed');
         
       }
     }
@@ -118,3 +118,4 @@ app.get("/success", (req, res) => {
 app.get('/cancel', (req, res) => res.send('Cancelled'));
 
 app.listen(PORT, () => console.log(`Server Started on ${PORT}`));
+
