@@ -2,8 +2,9 @@ const express = require("express");
 const paypal = require("paypal-rest-sdk");
 const session = require('express-session');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const alert = require('alert'); 
+const morgan = require("morgan");
 
 //let PORT = 3000
 
@@ -20,7 +21,7 @@ const PORT = process.env.PORT || 3000
 const app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended : true}));
-
+app.use(cors());
 const handlebars = require('express-handlebars')
              .create({ defaultLayout:'main' });
  app.engine('handlebars', handlebars.engine); 
@@ -40,9 +41,9 @@ app.get('/order', (req, res) => {
   res.render('order');
 });
 
-app.get('/completed', (req, res) => {
-  res.render('completed');
-});
+
+
+
 
 app.get('/cancel', (req, res) => {
   res.render('cancel');
@@ -95,6 +96,18 @@ app.post("/pay", (req, res) => {
   });
 });
 
+var summary = ('yo');
+
+app.get('/completed', (req, res) => {
+
+  //var summary = req.query.payerId;
+  res.render('completed', {summary });
+       
+  //res.json({ summary: 'Node.js, Express, and Postgres API' });
+
+});
+
+
 app.get("/success", (req, res) => {
   const payerId = req.query.PayerID;
   const paymentId = req.query.paymentId;
@@ -124,6 +137,8 @@ app.get("/success", (req, res) => {
        //alert("Payment Authorized");
       // res.send('Payment Authorized');
       
+     // res.redirect('completed');
+    
       res.redirect('completed');
       /*notifier.notify({
         title: 'Salutations!',
