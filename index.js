@@ -2,7 +2,8 @@ const express = require("express");
 const paypal = require("paypal-rest-sdk");
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const app = express();
+
+const alert = require('alert'); 
 
 //let PORT = 3000
 
@@ -16,9 +17,9 @@ paypal.configure({
 
 const PORT = process.env.PORT || 3000
 
-//const app = express();
+const app = express();
 app.use(express.static(__dirname + '/public'));
-
+app.use(bodyParser.urlencoded({extended : true}));
 
 const handlebars = require('express-handlebars')
              .create({ defaultLayout:'main' });
@@ -32,10 +33,22 @@ const handlebars = require('express-handlebars')
 app.get('/', (req, res) => {
   res.render('home');
 });
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+app.get('/order', (req, res) => {
+  res.render('order');
+});
 
 app.get('/completed', (req, res) => {
   res.render('completed');
 });
+
+app.get('/cancel', (req, res) => {
+  res.render('cancel');
+});
+
+
 
 app.post("/pay", (req, res) => {
   const create_payment_json = {
@@ -107,15 +120,26 @@ app.get("/success", (req, res) => {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-       res.send('Payment Authorized');
-      //res.redirect('completed');
+      // res.send('Payment Authorized');
+       //alert("Payment Authorized");
+      // res.send('Payment Authorized');
+      
+      res.redirect('completed');
+      /*notifier.notify({
+        title: 'Salutations!',
+        message: 'Hey there!',
+        //icon: path.join(__dirname, 'icon.jpg'),
+        //sound: true,
+       // wait: true
+      }
+      );*/
         
       }
     }
   );
 });
 
-app.get('/cancel', (req, res) => res.send('Cancelled'));
+app.get('/cancel', (req, res) => res.redirect('cancel'));
 
 app.listen(PORT, () => console.log(`Server Started on ${PORT}`));
 
