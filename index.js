@@ -155,7 +155,7 @@ app.get("/success", (req, res) => {
         const description = payment.transactions[0].description;
         const amount = payment.transactions[0].amount.total;
         const date = payment.create_time;
-        const state = payment.state;
+        const status = payment.state;
         const serviceCharge = payment.transactions[0].related_resources[0].sale.transaction_fee.value;
         const paymentId = payment.id;
         //req.session.orderID = orderID; // Store the order ID in the session
@@ -169,11 +169,13 @@ app.get("/success", (req, res) => {
        var descriptionrender = (`description: ${description}`);
        var amountrender = (`amount: ${amount}`);
        var daterender= (`date: ${date}`);
-       var staterender = (`state: ${state}`);
+       var staterender = (`status: ${status}`);
        var serviceChargerender = (`serviceCharge: ${serviceCharge}`);
        var paymentIdrender = (`paymentId: ${payerId}`);
+       var summary = transaction + '\n' + descriptionrender + '\n' + amountrender + '\n' + daterender + '\n' + staterender + '\n' + serviceChargerender + '\n' + paymentIdrender;
+
       
-       res.render('completed', { transaction, descriptionrender });
+       res.render('completed', { summary });
 
        
       
