@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const paypal = require("paypal-rest-sdk");
 const session = require('express-session');
@@ -6,14 +7,22 @@ const cors = require('cors');
 const alert = require('alert'); 
 const morgan = require("morgan");
 
+
 //let PORT = 3000
 
-paypal.configure({
+/*paypal.configure({
   mode: "sandbox", //sandbox or live
   client_id:
     "AUo-kQDHSBws6GPcrblX_2jVzKoQrAI1tUCx9QMWVPh1E4LXDhBQprFeZo1YlrsuxtYZpil-xqn1lwg9",
   client_secret:
     "EOKjzpRyxHdOHY5mGWZEYRi-W6lluLiEPY2I90NLfzBHbvJbX-acExPMlBAXG1va0wg8E1mfpZwoFYmt",
+});*/
+
+
+paypal.configure({
+  mode: process.env.MODE,
+  client_id: process.env.CLIENT_ID,
+  client_secret: process.env.CLIENT_SECRET,
 });
 
 const PORT = process.env.PORT || 3000
@@ -72,13 +81,21 @@ app.post("/pay", (req, res) => {
               currency: "USD",
               quantity: 1,
             },
+            {
+              name: "Fries",
+              sku: "002",
+              price: "5.00",
+              currency: "USD",
+              quantity: 2,
+            },
           ],
+          
         },
         amount: {
           currency: "USD",
-          total: "13.50",
+          total: "23.50",
         },
-        description: "Chicken Bugger Meal Full Student Lunch",
+        description: "Chicken Bugger Meal & Fries Full Lunch",
       },
     ],
   };
@@ -96,12 +113,12 @@ app.post("/pay", (req, res) => {
   });
 });
 
-var summary = ('yo');
+//var summary = ('yo');
 
 app.get('/completed', (req, res) => {
 
   //var summary = req.query.payerId;
-  res.render('completed', {summary });
+  res.render('completed');
        
   //res.json({ summary: 'Node.js, Express, and Postgres API' });
 
@@ -118,7 +135,7 @@ app.get("/success", (req, res) => {
       {
         amount: {
           currency: "USD",
-          total: "13.50",
+          total: "23.50",
         },
       },
     ],
@@ -133,21 +150,34 @@ app.get("/success", (req, res) => {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-      // res.send('Payment Authorized');
+       // const transactionId = payment.transactions[0].related_resources[0].sale.id;
+        const transactionId = payment.transactions[0].related_resources[0].sale.id;
+        const description = payment.transactions[0].description;
+        const amount = payment.transactions[0].amount.total;
+        const date = payment.create_time;
+        const state = payment.state;
+        const serviceCharge = payment.transactions[0].related_resources[0].sale.transaction_fee.value;
+        const paymentId = payment.id;
+        //req.session.orderID = orderID; // Store the order ID in the session
+      //res.send('Payment Authorized', + payerId);
        //alert("Payment Authorized");
-      // res.send('Payment Authorized');
+       //res.send(`Payment Authorized, transactionId=${transactionId}`);
       
-     // res.redirect('completed');
-    
-      res.redirect('completed');
-      /*notifier.notify({
-        title: 'Salutations!',
-        message: 'Hey there!',
-        //icon: path.join(__dirname, 'icon.jpg'),
-        //sound: true,
-       // wait: true
-      }
-      );*/
+      // res.redirect(`/completed?transactionId=${transactionId}`);
+
+       var transaction = (`transaction_Id: ${transactionId}`);
+       var descriptionrender = (`description: ${description}`);
+       var amountrender = (`amount: ${amount}`);
+       var daterender= (`date: ${date}`);
+       var staterender = (`state: ${state}`);
+       var serviceChargerender = (`serviceCharge: ${serviceCharge}`);
+       var paymentIdrender = (`paymentId: ${payerId}`);
+      
+       res.render('completed', { transaction, descriptionrender });
+
+       
+      
+     
         
       }
     }

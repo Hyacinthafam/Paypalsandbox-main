@@ -34,19 +34,20 @@
 					<div class="inner">
 
 						<header>
-							<h2>Total amount to pay $13.50</h2>
+							<h2>order amount $23.50</h2>
 						</header>
-						<p><b>Order Summary :</b> <strong></strong>
+						<p><b> Light Menu:</b> <strong></strong>
 						<br />
-						<p style="text-align: left;">Chicken Bugger Meal  : 13.5 USD<br/>
-						Quantity 1</p>
+						<p style="text-align: left;">Chicken Bugger Meal  : $13.5</p><br/>
+						<p style="text-align: left;"> Fries               :  $5.00</p>
+						
 						<br />
 						</p>
 						<footer>
 							<ul class="buttons">
 								<form  class="button primary" action="/pay" method="post">
 								<li><button   type="submit"  class="button primary"><img src="images/paypal.svg" width="25px" height="25px">PayPal</button></li>
-								  <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+								  
 								</form>
 								<li><a href="#" class="button danger"><img src="images/card.svg" width="25px" height="25px">Debit or Credit Card</a></li>
 							</ul>
@@ -84,3 +85,44 @@
 
 	</body>
 </html>
+<script>
+  // JavaScript functions to dynamically add/delete item fields
+
+  // Counter to track the number of item fields
+  let itemCount = 1;
+
+  function addItem() {
+    const container = document.getElementById("items-container");
+
+    // Create a new item field group
+    const itemGroup = document.createElement("div");
+    itemGroup.id = `item-${itemCount}`;
+
+    // Add input fields for item details
+    itemGroup.innerHTML = `
+      <input type="text" name="items[${itemCount}][name]" placeholder="Item Name" required>
+      <input type="text" name="items[${itemCount}][sku]" placeholder="SKU" required>
+      <input type="number" name="items[${itemCount}][price]" placeholder="Price" step="0.01" required>
+      <input type="number" name="items[${itemCount}][quantity]" placeholder="Quantity" min="1" required>
+    `;
+
+    // Append the item group to the container
+    container.appendChild(itemGroup);
+
+    // Increment the item count
+    itemCount++;
+  }
+
+  function deleteItem() {
+    if (itemCount > 1) {
+      const container = document.getElementById("items-container");
+
+      // Remove the last item group
+      const lastItem = document.getElementById(`item-${itemCount - 1}`);
+      container.removeChild(lastItem);
+
+      // Decrement the item count
+      itemCount--;
+    }
+  }
+</script>
